@@ -3,18 +3,18 @@ services:
   mysql:
     container_name: mysql
     restart: always
-    image: mysql:5.7.25
+    image: mysql:5.7
     volumes:
       - ./sql-data/db:/var/lib/mysql
     ports:
       - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password
     hostname: VIP
     environment:
       MYSQL_DATABASE: 'testlink'
-      MYSQL_USER: 'suscribete'
-      MYSQL_PASSWORD: 'Recuerda_Suscribirte'
+      MYSQL_USER: 'testlink_user'
+      MYSQL_PASSWORD: 'testlink_password'
       MYSQL_ROOT_PASSWORD: 'pwd_root'
-
 
   testlink:
     image: imtnd/testlink:latest
@@ -29,13 +29,12 @@ services:
     environment:
       TL_MYSQL_HOST: mysql
       TL_MYSQL_USER: testlink_user
-      TL_MYSQL_PASSWORD: your_testlink_user_password
-      TL_DB_NAME: testlink_db
+      TL_MYSQL_PASSWORD: testlink_password
+      TL_DB_NAME: testlink
       TL_DB_PREFIX: tl_
-      TL_ADMIN_EMAIL: your_admin_email@example.com
-      TL_ADMIN_USER: your_admin_username
-      TL_ADMIN_PASSWORD: your_admin_password
-
+      TL_ADMIN_EMAIL: admin@example.com
+      TL_ADMIN_USER: admin
+      TL_ADMIN_PASSWORD: admin123
 
 volumes:
   mysql_data:
